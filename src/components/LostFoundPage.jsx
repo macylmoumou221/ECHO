@@ -7,7 +7,7 @@ import ItemList from "./ItemList"
 import AddItemModal from "./AddItemModal"
 import DetailModal from "./DetailModal"
 import MyObjectsModal from "./MyObjectsModal"
-import historyIcon from "../assets/history.png"
+import historyIcon from "../assets/History.png"
 import { motion } from "framer-motion"
 import axios from "axios"
 import { BASE_URL } from '../config'
