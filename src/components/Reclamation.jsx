@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import "./Reclamation.css"
 import Afficherreclamation from "./Afficherreclamation"
-
-const BASE_URL = "http://localhost:5000"
+import { BASE_URL } from "../config"
 
 const Reclamation = ({ userRole, userId = 101 }) => {
   const [claims, setClaims] = useState([])

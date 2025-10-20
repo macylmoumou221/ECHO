@@ -270,7 +270,7 @@ export default function ProfilePage({ user }) {
         // Make API request to update profile
         const token = localStorage.getItem("token")
         const response = await axios.put(
-          "http://localhost:5000/api/users/profile",
+          `${BASE_URL}/api/users/profile`,
           { socialLinks: updatedSocialLinks },
           {
             headers: {
@@ -325,7 +325,7 @@ export default function ProfilePage({ user }) {
       // Make API request to update profile
       const token = localStorage.getItem("token")
       const response = await axios.put(
-        "http://localhost:5000/api/users/profile",
+        `${BASE_URL}/api/users/profile`,
         { socialLinks: updatedSocialLinks },
         {
           headers: {

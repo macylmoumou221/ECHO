@@ -55,7 +55,7 @@ const SignupForm = () => {
     e.preventDefault()
 
     try {
-      const res = await axios.post(`${BASE_URL}/api/auth/register`, formData)
+      const res = await axios.post(`https://echo-backend-1bck.onrender.com/api/auth/register`, formData)
 
       // You may receive token and user from the backend
       const { token, user } = res.data
