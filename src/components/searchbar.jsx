@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { BASE_URL } from '../config'
 
-const PLACEHOLDER_IMAGE = '/src/assets/UserCircle.png'
+const PLACEHOLDER_IMAGE = '/assets/UserCircle.png'
 const DEFAULT_AVATAR = '/placeholder.svg'
 
 export default function Searchbar({ username, isOpen, darkMode, userType, name, photoUrl, lastName }) {

@@ -69,8 +69,8 @@ const AjoutPub = ({
   const [j, setJ] = useState(downvoteCount) // Initialize with passed downvoteCount
   const [k, setK] = useState(upvoteCount - downvoteCount) // Initialize difference
   const [vote, setVote] = useState(hasUpvoted ? "like" : hasDownvoted ? "dislike" : null) // 'like', 'dislike', or null
-  const [img1, setimg1] = useState(hasUpvoted ? "/src/icons/DoubleAltArrowUp2.png" : "/src/icons/DoubleAltArrowUp.png")
-  const [img2, setimg2] = useState(hasDownvoted ? "/src/icons/DoubleAltArrowDown2.png" : "/src/icons/DoubleAltArrowDown.png")
+  const [img1, setimg1] = useState(hasUpvoted ? "/icons/DoubleAltArrowUp2.png" : "/icons/DoubleAltArrowUp.png")
+  const [img2, setimg2] = useState(hasDownvoted ? "/icons/DoubleAltArrowDown2.png" : "/icons/DoubleAltArrowDown.png")
   const [showComments, setShowComments] = useState(isFullPost) // Auto-show comments in full post view
   const [newComment, setNewComment] = useState("")
   const commentInputRef = useRef(null)
@@ -118,8 +118,8 @@ const AjoutPub = ({
       setI(response.data.upvotes)
       setJ(response.data.downvotes)
       setVote(response.data.hasUpvoted ? "like" : null)
-      setimg1(response.data.hasUpvoted ? "/src/icons/DoubleAltArrowUp2.png" : "/src/icons/DoubleAltArrowUp.png")
-      setimg2("/src/icons/DoubleAltArrowDown.png")
+      setimg1(response.data.hasUpvoted ? "/icons/DoubleAltArrowUp2.png" : "/icons/DoubleAltArrowUp.png")
+      setimg2("/icons/DoubleAltArrowDown.png")
     } catch (err) {
       console.error("Error upvoting post:", err)
     }
@@ -145,8 +145,8 @@ const AjoutPub = ({
       setI(response.data.upvotes)
       setJ(response.data.downvotes)
       setVote(response.data.hasDownvoted ? "dislike" : null)
-      setimg2(response.data.hasDownvoted ? "/src/icons/DoubleAltArrowDown2.png" : "/src/icons/DoubleAltArrowDown.png")
-      setimg1("/src/icons/DoubleAltArrowUp.png")
+      setimg2(response.data.hasDownvoted ? "/icons/DoubleAltArrowDown2.png" : "/icons/DoubleAltArrowDown.png")
+      setimg1("/icons/DoubleAltArrowUp.png")
     } catch (err) {
       console.error("Error downvoting post:", err)
     }
@@ -538,7 +538,7 @@ const AjoutPub = ({
                   className="w-10 h-10 rounded-full object-cover border-2 border-[#3DDC97] group-hover:border-[#32c285] transition-colors"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "/src/assets/UserCircle.png";
+                    e.target.src = "/assets/UserCircle.png";
                   }}
                 />
               ) : (
@@ -618,7 +618,7 @@ const AjoutPub = ({
             {formatTimeAgo(createdAt)}
           </span>
           <img 
-            src="/src/assets/Danger.png" 
+            src="/assets/Danger.png" 
             alt="Danger" 
             className={`Danger ${isReported ? 'opacity-50 cursor-not-allowed' : ''}`}
             onClick={!isReported ? handleReportClick : undefined} 
@@ -699,7 +699,7 @@ const AjoutPub = ({
             className={`flex items-center justify-center SaveButton ${isSaved ? 'saved' : ''}`}
           >
             <img 
-              src="/src/icons/Vector.png"
+              src="/icons/Vector.png"
               alt={isSaved ? "Saved" : "Save"}
               style={{ 
                 filter: isSaved ? 'invert(86%) sepia(23%) saturate(7076%) hue-rotate(359deg) brightness(105%) contrast(104%)' : 'none',

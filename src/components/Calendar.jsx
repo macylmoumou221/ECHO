@@ -1,7 +1,6 @@
 "use client"
 import "./Calendar.css"
 import { useState, useRef, useEffect, useCallback } from "react"
-import { mockEvents } from "../mockData"
 
 // Function to get today's date in YYYY-MM-DD format
 const getTodayDateString = () => {
@@ -11,7 +10,8 @@ const getTodayDateString = () => {
 
 // Function to get events for a specific date
 const getEventsForDate = (dateString) => {
-  return mockEvents[dateString] || []
+  // TODO: Fetch events from backend API
+  return []
 }
 
 const Calendar = ({ onDateSelect }) => {
@@ -72,8 +72,8 @@ const Calendar = ({ onDateSelect }) => {
   const hasEvents = (day, isCurrentMonth) => {
     if (!isCurrentMonth) return false
 
-    const dateString = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
-    return mockEvents[dateString] && mockEvents[dateString].length > 0
+    // TODO: Check events from backend API
+    return false
   }
 
   // Function to check if the day has changed

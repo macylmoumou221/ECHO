@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { ArrowLeft, Search, Filter, X, MessageSquare, User, Calendar, Eye } from "lucide-react"
-import { mockClaims } from "../mockData"
 
 export default function ClaimsOverview({ onClose }) {
   const [claims, setClaims] = useState([])
@@ -19,23 +18,17 @@ export default function ClaimsOverview({ onClose }) {
   })
 
   useEffect(() => {
-    
-    setClaims(mockClaims)
-    setFilteredClaims(mockClaims)
+    // TODO: Fetch claims from backend API
+    setClaims([])
+    setFilteredClaims([])
 
     // Calculate stats
-    const total = mockClaims.length
-    const pending = mockClaims.filter((claim) => claim.status === "pending").length
-    const dealt = mockClaims.filter((claim) => claim.status === "dealt").length
-    const rejected = mockClaims.filter((claim) => claim.status === "rejected").length
-    const resolutionRate = total > 0 ? Math.round(((dealt + rejected) / total) * 100) : 0
-
     setStats({
-      total,
-      pending,
-      dealt,
-      rejected,
-      resolutionRate,
+      total: 0,
+      pending: 0,
+      dealt: 0,
+      rejected: 0,
+      resolutionRate: 0,
     })
   }, [])
 

@@ -200,7 +200,7 @@ export default function ProfilePage({ user }) {
   }
 
   const getImageUrl = (url) => {
-    if (!url) return "/src/assets/UserCircle.png"
+    if (!url) return "/assets/UserCircle.png"
     if (url.startsWith("data:")) return url // Handle base64 images
     if (url.startsWith("http")) return url
     return `${BASE_URL}${url}`
@@ -602,7 +602,7 @@ export default function ProfilePage({ user }) {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   onError={(e) => {
                     e.target.onerror = null
-                    e.target.src = "/src/assets/UserCircle.png"
+                    e.target.src = "/assets/UserCircle.png"
                   }}
                 />
                 <motion.div

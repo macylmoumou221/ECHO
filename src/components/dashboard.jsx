@@ -25,12 +25,12 @@ export default function Dashboard() {
   const fetchDashboardStats = async (timeFilter) => {
     setIsLoading(true)
     try {
-      // In a real app, this would be an API call
+      // TODO: Replace with actual API call
       // const response = await fetch(`/api/admin/dashboard-stats?timeFilter=${timeFilter}`)
       // const data = await response.json()
 
-      // For now, we'll use mock data
-      const mockData = {
+      // Local mock data for development
+      const localMockData = {
         today: {
           activeUsers: 245,
           totalPosts: 1289,
@@ -90,7 +90,7 @@ export default function Dashboard() {
         },
       }
 
-      setDashboardStats(mockData[timeFilter])
+      setDashboardStats(localMockData[timeFilter])
       setIsLoading(false)
     } catch (error) {
       console.error("Error fetching dashboard stats:", error)

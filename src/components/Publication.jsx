@@ -49,7 +49,7 @@ const Publication = () => {
                 `${author.firstName} ${author.lastName}` : 
                 "Utilisateur inconnu",
               username: author.username || "utilisateur",
-              avatar: author.profilePicture || "/src/assets/UserCircle.png",
+              avatar: author.profilePicture || "/assets/UserCircle.png",
               role: author.role || "student",
               id: author._id || null
             },
@@ -68,7 +68,7 @@ const Publication = () => {
                     `${commentUser.firstName} ${commentUser.lastName}` : 
                     "Utilisateur inconnu",
                   username: commentUser.username || "utilisateur",
-                  avatar: commentUser.profilePicture || "/src/assets/UserCircle.png"
+                  avatar: commentUser.profilePicture || "/assets/UserCircle.png"
                 },
                 createdAt: comment.createdAt,
                 upvotes: comment.upvotes || [],
@@ -86,7 +86,7 @@ const Publication = () => {
                         `${replyUser.firstName} ${replyUser.lastName}` : 
                         "Utilisateur inconnu",
                       username: replyUser.username || "utilisateur",
-                      avatar: replyUser.profilePicture || "/src/assets/UserCircle.png"
+                      avatar: replyUser.profilePicture || "/assets/UserCircle.png"
                     },
                     createdAt: reply.createdAt,
                     upvotes: reply.upvotes || [],
@@ -251,7 +251,7 @@ const Publication = () => {
                 `${author.firstName} ${author.lastName}` : 
                 "Utilisateur inconnu",
               username: author.username || "utilisateur",
-              avatar: author.profilePicture || "/src/assets/UserCircle.png",
+              avatar: author.profilePicture || "/assets/UserCircle.png",
               role: author.role || "student",
               id: author._id || null
             },
@@ -337,7 +337,7 @@ const Publication = () => {
             <div className="post-actions">
               <div className="media-buttons">
                 <button className="media-button" onClick={handleImageClick}>
-                  <img src="/src/assets/Gallery.png" alt="Gallery" />
+                  <img src="/assets/Gallery.png" alt="Gallery" />
                   <span>Image</span>
                 </button>
                 <button className="media-button" onClick={handleImageUrlClick}>

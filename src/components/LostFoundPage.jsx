@@ -7,7 +7,7 @@ import ItemList from "./ItemList"
 import AddItemModal from "./AddItemModal"
 import DetailModal from "./DetailModal"
 import MyObjectsModal from "./MyObjectsModal"
-import historyIcon from "../assets/History.png"
+const historyIcon = "/assets/History.png"
 import { motion } from "framer-motion"
 import axios from "axios"
 import { BASE_URL } from '../config'
@@ -36,7 +36,7 @@ export default function LostFoundPage() {
   const [locationFilter, setLocationFilter] = useState("")
   const [timeFilter, setTimeFilter] = useState("")
 
-  // Replace mockItems with backend data
+  // Fetch lost and found items from backend
   useEffect(() => {
     const fetchLostFoundItems = async () => {
       try {

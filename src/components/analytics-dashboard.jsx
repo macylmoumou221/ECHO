@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { mockAdminAnalytics } from "../mockData"
 import {
   BarChart,
   Bar,
@@ -20,7 +19,13 @@ import {
 
 export default function AnalyticsDashboard() {
   const [timeRange, setTimeRange] = useState("today")
-  const analytics = mockAdminAnalytics
+  
+  // TODO: Fetch analytics from backend API
+  const analytics = {
+    userDistribution: { students: 0, teachers: 0, admins: 0 },
+    activeUsers: [],
+    contentActivity: []
+  }
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"]
 

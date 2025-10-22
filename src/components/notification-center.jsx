@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { mockNotificationHistory } from "../mockData"
 
 export default function NotificationCenter() {
-  const [notifications, setNotifications] = useState(mockNotificationHistory)
+  const [notifications, setNotifications] = useState([])
   const [newNotification, setNewNotification] = useState({
     title: "",
     content: "",

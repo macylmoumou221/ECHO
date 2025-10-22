@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { ArrowLeft, Calendar, Plus, Search, Filter, Edit, Trash2, X, Eye, EyeOff, Users } from "lucide-react"
-import { mockEvents } from "../mockData"
 
 export default function EventManagement({ onClose }) {
   const [events, setEvents] = useState([])
@@ -22,26 +21,20 @@ export default function EventManagement({ onClose }) {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Convert mockEvents object to array for easier handling
+  // Fetch events from backend
   useEffect(() => {
-    const eventsArray = []
-    Object.keys(mockEvents).forEach((date) => {
-      mockEvents[date].forEach((event) => {
-        eventsArray.push({
-          ...event,
-          date,
-          visibility: event.visibility || "all", // Default visibility
-          targetGroups: event.targetGroups || [], // Default target groups
-          targetPromotions: event.targetPromotions || [], // Default target promotions
-        })
-      })
-    })
-
-    // Sort events by date
-    eventsArray.sort((a, b) => new Date(a.date) - new Date(b.date))
-
-    setEvents(eventsArray)
-    setFilteredEvents(eventsArray)
+    // TODO: Replace with actual API call
+    // const fetchEvents = async () => {
+    //   const response = await fetch('/api/events');
+    //   const data = await response.json();
+    //   setEvents(data);
+    //   setFilteredEvents(data);
+    // };
+    // fetchEvents();
+    
+    // For now, start with empty array
+    setEvents([])
+    setFilteredEvents([])
   }, [])
 
   useEffect(() => {

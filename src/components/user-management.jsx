@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { mockAdminUsers } from "../mockData"
 
 export default function UserManagement() {
-  const [users, setUsers] = useState(mockAdminUsers)
+  const [users, setUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [roleFilter, setRoleFilter] = useState("all")
   const [statusFilter, setStatusFilter] = useState("all")

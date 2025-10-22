@@ -29,7 +29,6 @@ import Sidebar from "./components/Sidebar"
 import Searchbar from "./components/searchbar"
 import ReportDialog from "./components/ReportDialog"
 
-// Import current user from mockData
 import GoogleRedirect from "./components/GoogleRedirect"
 import useApiRequest from "./hooks/useApiRequest"
 

@@ -1,7 +1,7 @@
 import { BASE_URL } from '../config';
 
 export const getImageUrl = (url) => {
-  if (!url) return "/src/assets/UserCircle.png";
+  if (!url) return "/assets/UserCircle.png";
   
   // If it's already a valid URL, return it
   if (url.startsWith('http://') || url.startsWith('https://')) {

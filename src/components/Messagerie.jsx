@@ -215,7 +215,7 @@ const Messagerie = () => {
           conversationId: conv._id,
           name: `${conv.partner.firstName} ${conv.partner.lastName}`,
           username: conv.partner.username,
-          profilePicture: conv.partner.profilePicture || "/src/assets/UserCircle.png",
+          profilePicture: conv.partner.profilePicture || "/assets/UserCircle.png",
             lastMessage: formatPreviewText(conv.latestMessage, `${conv.partner.firstName} ${conv.partner.lastName}`) || "",
             time: new Date(conv.latestMessage?.createdAt).toLocaleTimeString([], {
             hour: "2-digit",
@@ -265,7 +265,7 @@ const Messagerie = () => {
       conversationId: conv._id,
         name: `${conv.partner.firstName} ${conv.partner.lastName}`,
         username: conv.partner.username,
-  profilePicture: conv.partner.profilePicture || "/src/assets/UserCircle.png",
+  profilePicture: conv.partner.profilePicture || "/assets/UserCircle.png",
   lastMessage: formatPreviewText(conv.latestMessage, `${conv.partner.firstName} ${conv.partner.lastName}`) || "",
   time: new Date(conv.latestMessage?.createdAt).toLocaleTimeString([], {
           hour: "2-digit",
@@ -371,7 +371,7 @@ const Messagerie = () => {
                     className="max-w-full rounded-lg"
                     onError={(e) => {
                       e.target.onerror = null
-                      e.target.src = "/src/assets/UserCircle.png"
+                      e.target.src = "/assets/UserCircle.png"
                     }}
                   />
                 </div>
@@ -886,7 +886,7 @@ const Messagerie = () => {
                             className="w-10 h-10 rounded-full object-cover"
                             onError={(e) => {
                               e.target.onerror = null
-                              e.target.src = "/src/assets/UserCircle.png"
+                              e.target.src = "/assets/UserCircle.png"
                             }}
                           />
                         ) : (
@@ -929,7 +929,7 @@ const Messagerie = () => {
                               className="w-10 h-10 rounded-full object-cover"
                               onError={(e) => {
                                 e.target.onerror = null
-                                e.target.src = "/src/assets/UserCircle.png"
+                                e.target.src = "/assets/UserCircle.png"
                               }}
                             />
                           ) : (

@@ -418,7 +418,7 @@ const Comment = ({ comment, onReply, onVote, currentUserId, currentUser, postId 
                   onClick={() => handleVote('upvote')} // Changed from 'like' to 'upvote'
                 >
                   <img
-                    src={voteState.upvoted ? "/src/icons/DoubleAltArrowUp2.png" : "/src/icons/DoubleAltArrowUp.png"}
+                    src={voteState.upvoted ? "/icons/DoubleAltArrowUp2.png" : "/icons/DoubleAltArrowUp.png"}
                     alt="Upvote"
                     className="w-5 h-5"
                   />
@@ -436,7 +436,7 @@ const Comment = ({ comment, onReply, onVote, currentUserId, currentUser, postId 
                   onClick={() => handleVote('downvote')} // Changed from 'dislike' to 'downvote'
                 >
                   <img
-                    src={voteState.downvoted ? "/src/icons/DoubleAltArrowDown2.png" : "/src/icons/DoubleAltArrowDown.png"}
+                    src={voteState.downvoted ? "/icons/DoubleAltArrowDown2.png" : "/icons/DoubleAltArrowDown.png"}
                     alt="Downvote"
                     className="w-5 h-5"
                   />
@@ -535,7 +535,7 @@ const Comment = ({ comment, onReply, onVote, currentUserId, currentUser, postId 
                           onClick={() => handleReplyVote(reply.id, 'upvote')} // Changed from 'like' to 'upvote'
                         >
                           <img
-                            src={reply.hasUpvoted ? "/src/icons/DoubleAltArrowUp2.png" : "/src/icons/DoubleAltArrowUp.png"}
+                            src={reply.hasUpvoted ? "/icons/DoubleAltArrowUp2.png" : "/icons/DoubleAltArrowUp.png"}
                             alt="Upvote"
                             className="w-4 h-4"
                           />
@@ -555,7 +555,7 @@ const Comment = ({ comment, onReply, onVote, currentUserId, currentUser, postId 
                           onClick={() => handleReplyVote(reply.id, 'downvote')} // Changed from 'dislike' to 'downvote'
                         >
                           <img
-                            src={reply.hasDownvoted ? "/src/icons/DoubleAltArrowDown2.png" : "/src/icons/DoubleAltArrowDown.png"}
+                            src={reply.hasDownvoted ? "/icons/DoubleAltArrowDown2.png" : "/icons/DoubleAltArrowDown.png"}
                             alt="Downvote"
                             className="w-4 h-4"
                           />

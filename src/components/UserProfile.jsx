@@ -163,7 +163,7 @@ export default function UserProfile() {
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "/src/assets/UserCircle.png";
+                    e.target.src = "/assets/UserCircle.png";
                   }}
                 />
               </motion.div>

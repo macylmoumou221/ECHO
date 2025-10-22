@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { mockReportedContent } from "../mockData"
 
 export default function ContentModeration({ onClose }) {
   const [reportedContent, setReportedContent] = useState([])
@@ -25,13 +24,14 @@ export default function ContentModeration({ onClose }) {
   const fetchReportedContent = async () => {
     setIsLoading(true)
     try {
-      // In a real app, this would be an API call
+      // TODO: Replace with actual API call
       // const response = await fetch('/api/admin/reported-posts');
       // const data = await response.json();
+      // setReportedContent(data);
 
-      // Using mock data for now
+      // For now, use empty array
       setTimeout(() => {
-        setReportedContent(mockReportedContent)
+        setReportedContent([])
         setIsLoading(false)
       }, 500) // Simulate network delay
     } catch (error) {

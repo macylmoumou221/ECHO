@@ -73,7 +73,7 @@ const Notification = () => {
         const senderId = sender._id || null
         const senderUsername = sender.username || "system"
         const senderName = sender.firstName && sender.lastName ? `${sender.firstName} ${sender.lastName}` : (sender.username || "Système")
-        const senderAvatar = sender.profilePicture || "/src/assets/UserCircle.png"
+        const senderAvatar = sender.profilePicture || "/assets/UserCircle.png"
 
         return {
           id: notification._id,

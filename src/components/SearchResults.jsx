@@ -8,7 +8,7 @@ import { getImageUrl } from '../utils/imageUtils';
 import { BASE_URL } from '../config'
 
 const DEFAULT_IMAGE = '/placeholder.svg'
-const USER_PLACEHOLDER = '/src/assets/UserCircle.png'
+const USER_PLACEHOLDER = '/assets/UserCircle.png'
 
 export default function SearchResults() {
   const location = useLocation()
