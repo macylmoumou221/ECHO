@@ -3,10 +3,26 @@
 @tailwind utilities;
 
 @import "tailwindcss";
+
+/* Hide scrollbar globally but keep functionality */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   transition: background-color 0.5s ease;
   font-family: "Jakarta Sans", sans-serif;
-
+  overflow-x: hidden; /* Prevent horizontal scroll */
   /* font-family: 'Outfit', sans-serif; */
 }
 

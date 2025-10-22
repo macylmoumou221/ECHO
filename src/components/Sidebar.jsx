@@ -90,12 +90,20 @@ export default function Sidebar({ expanded, setExpanded, userRole = "student" })
 
   return (
     <SidebarContext.Provider value={{ expanded }}>
+      {/* Mobile Overlay */}
+      {expanded && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setExpanded(false)}
+        />
+      )}
+      
       <aside
-        className={`fixed left-0 top-0 h-screen transition-[width] duration-300
+        className={`fixed left-0 top-0 h-screen transition-all duration-300 z-50
           bg-gradient-to-b from-[#1e1e2e] to-[#3ddc97]
           border-r-transparent rounded-r-xl shadow-md
           text-white overflow-hidden select-none
-          ${expanded ? "w-[230px]" : "w-[80px]"}`}
+          ${expanded ? "w-[230px] translate-x-0" : "w-[80px] -translate-x-full lg:translate-x-0"}`}
       >
         <nav className="h-full flex flex-col">
           {/* Header */}

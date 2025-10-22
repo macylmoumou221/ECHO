@@ -138,16 +138,17 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
 
   return (
     <header
-      className={`fixed top-0 right-0 h-16 select-none shadow-[0_4px_10px_rgba(0,0,0,0.1)]
-        flex items-center justify-between px-6 transition-all duration-300 z-50
+      className={`fixed top-0 right-0 h-14 md:h-16 select-none shadow-[0_4px_10px_rgba(0,0,0,0.1)]
+        flex items-center justify-between px-3 sm:px-4 md:px-6 transition-all duration-300 z-30
         ${darkMode ? "bg-[#242431] text-white" : "bg-white text-gray-800"}
-        ${isOpen ? "w-[calc(100%-230px)]" : "w-[calc(100%-80px)]"}`}
+        w-full lg:w-[calc(100%-${isOpen ? '230px' : '80px'})]`}
     >
-      <div className="text-lg font-semibold select-none">
-        Salut, <span className="text-[#3ddc97]">{username}</span>
+      <div className="text-sm sm:text-base md:text-lg font-semibold select-none flex-shrink-0">
+        <span className="hidden sm:inline">Salut, </span>
+        <span className="text-[#3ddc97]">{username}</span>
       </div>
 
-      <div className="relative w-[50%] ml-6">
+      <div className="relative flex-1 max-w-md mx-2 sm:mx-4 md:mx-6">
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -157,31 +158,31 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
               setResults([])
             }
           }}
-          className={`relative flex items-center px-4 py-2 rounded-lg
+          className={`relative flex items-center px-2 sm:px-3 md:px-4 py-1.5 md:py-2 rounded-lg
             ${darkMode ? "bg-[#242431] text-white" : "bg-gray-100 text-gray-600"}`}
         >
-          <Search className="absolute left-3 text-gray-400" size={20} />
+          <Search className="absolute left-2 sm:left-3 text-gray-400" size={16} />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={isFocused ? "" : "Rechercher sur ECHO"}
+            placeholder={isFocused ? "" : "Rechercher"}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 200)}
             onKeyDown={handleKeyDown}
-            className={`bg-transparent focus:outline-none pl-10 w-full
+            className={`bg-transparent focus:outline-none pl-7 sm:pl-8 md:pl-10 pr-2 w-full text-sm md:text-base
               ${
                 darkMode
-                  ? "text-white placeholder-transparent md:placeholder-gray-400"
-                  : "text-gray-600 placeholder-transparent md:placeholder-gray-400"
+                  ? "text-white placeholder-gray-400"
+                  : "text-gray-600 placeholder-gray-400"
               }`}
           />
           <button
             type="submit"
-            className="flex items-center gap-2 bg-[#3ddc97] text-white px-4 py-2 rounded-lg h-full transition-all cursor-pointer"
+            className="flex items-center gap-1 md:gap-2 bg-[#3ddc97] text-white px-2 sm:px-3 md:px-4 py-1 md:py-2 rounded-lg transition-all cursor-pointer text-sm md:text-base"
           >
-            <span className="hidden md:inline">Rechercher</span>
-            <ArrowRight size={16} />
+            <span className="hidden lg:inline">Rechercher</span>
+            <ArrowRight size={14} className="sm:w-4 sm:h-4" />
           </button>
         </form>
 
@@ -253,31 +254,31 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
       </div>
 
       <div
-        className="flex items-center gap-2 text-gray-500 select-none relative cursor-pointer group"
+        className="flex items-center gap-1 sm:gap-2 text-gray-500 select-none relative cursor-pointer group flex-shrink-0"
         onClick={() => navigate("/profile")}
       >
-        <div className="relative w-10 h-10">
+        <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10">
           <img
             loading="lazy"
             src={currentUser?.profilePicture || PLACEHOLDER_IMAGE}
             alt={`${currentUser?.firstName || name} ${currentUser?.lastName || lastName}`}
-            className="w-10 h-10 object-cover rounded-full bg-gray-300 ring-2 ring-offset-2 ring-[#3ddc97] transition-all duration-300 group-hover:ring-4"
+            className="w-full h-full object-cover rounded-full bg-gray-300 ring-1 sm:ring-2 ring-offset-1 sm:ring-offset-2 ring-[#3ddc97] transition-all duration-300 group-hover:ring-4"
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = PLACEHOLDER_IMAGE;
             }}
           />
-          <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-1 shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+          <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 bg-white rounded-full p-0.5 sm:p-1 shadow-lg transform transition-transform duration-300 group-hover:scale-110">
             {currentUser?.role === "admin" ? (
-              <Shield size={14} className="text-[#3ddc97] drop-shadow-md" />
+              <Shield size={12} className="sm:w-3.5 sm:h-3.5 text-[#3ddc97] drop-shadow-md" />
             ) : currentUser?.role === "teacher" ? (
-              <Briefcase size={14} className="text-[#3ddc97] drop-shadow-md" />
+              <Briefcase size={12} className="sm:w-3.5 sm:h-3.5 text-[#3ddc97] drop-shadow-md" />
             ) : (
-              <GraduationCap size={14} className="text-[#3ddc97] drop-shadow-md" />
+              <GraduationCap size={12} className="sm:w-3.5 sm:h-3.5 text-[#3ddc97] drop-shadow-md" />
             )}
           </div>
         </div>
-        <span className="font-medium group-hover:text-[#3ddc97] transition-colors duration-300">
+        <span className="hidden md:inline font-medium group-hover:text-[#3ddc97] transition-colors duration-300 text-sm lg:text-base">
           {currentUser?.firstName || name} {currentUser?.lastName || lastName}
         </span>
       </div>

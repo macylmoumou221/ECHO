@@ -11,9 +11,19 @@ div {
 }
 .App {
   display: flex;
-  flex-direction: row;
-  height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
   background-color: #f6f6f6;
+  overflow-x: hidden;
+}
+
+/* Desktop layout */
+@media (min-width: 1024px) {
+  .App {
+    flex-direction: row;
+    height: 100vh;
+  }
 }
 .Navbar {
   width: fit-content;
@@ -32,56 +42,111 @@ div {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f6f6f6;
   overflow-y: auto;
+  overflow-x: hidden;
   box-sizing: border-box;
-}
-.recherche {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 77px;
-  flex-shrink: 0;
 }
 
 .main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 1rem;
+  gap: 1.5rem;
 }
+
+/* Desktop: side-by-side layout */
+@media (min-width: 1024px) {
+  .main {
+    flex-direction: row;
+    padding: 0 1.25rem;
+  }
+}
+
 .publication {
-  width: 750px;
+  width: 100%;
   height: fit-content;
-  margin-left: 40px;
-  max-width: calc(100% - 475px); /* Ensure it doesn't overlap with the calendar */
+  margin: 0;
+  flex: 1;
 }
+
+/* Desktop: Limit publication width when sidebar is visible */
+@media (min-width: 1024px) {
+  .publication {
+    max-width: calc(100% - 400px);
+    margin-left: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .publication {
+    max-width: 750px;
+    margin-left: 2.5rem;
+  }
+}
+
 .programme {
-  width: 375px;
-  height: 100%;
+  width: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top: 60px;
-  margin-left: 60px;
+  margin: 0;
+  gap: 1.25rem;
   flex-shrink: 0;
-  gap: 20px;
+}
+
+/* Tablet and Desktop: Fixed sidebar */
+@media (min-width: 768px) {
+  .programme {
+    margin-top: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .programme {
+    width: 375px;
+    margin-left: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .programme {
+    margin-left: 3.75rem;
+  }
 }
 
 .calendrier {
   width: 100%;
-  height: 280px;
-  border-radius: 20px;
+  min-height: 280px;
+  height: auto;
+  border-radius: 1.25rem;
   background-color: #ffffffff;
   flex-shrink: 0;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .calendrier {
+    height: 280px;
+  }
 }
 
 .planning {
   width: 100%;
-  height: 230px;
-  border-radius: 20px;
+  min-height: 230px;
+  height: auto;
+  border-radius: 1.25rem;
   background-color: #ffffffff;
   flex-shrink: 0;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .planning {
+    height: 230px;
+  }
 }
