@@ -12,6 +12,7 @@ import axios from "axios"
 const LoginForm = () => {
   const { data, error, loading, refetch, BASE_URL } = useApiRequest()
   const [user, setUser] = useState()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
   const { language } = useLanguage()
 
@@ -51,11 +52,28 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Prevent multiple submissions
+    if (isSubmitting) {
+      console.log("Already submitting, ignoring duplicate submission")
+      return
+    }
+    
+    setIsSubmitting(true)
     console.log("Form data submitted:", formData)
+    console.log("Backend URL:", BASE_URL)
 
     try {
       // Make the POST request directly using axios
-      const response = await axios.post(`${BASE_URL}/api/auth/login`, formData)
+      console.log("Sending request to:", `${BASE_URL}/api/auth/login`)
+      const response = await axios.post(`${BASE_URL}/api/auth/login`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        timeout: 10000, // 10 second timeout
+      })
+
+      console.log("Response received:", response)
 
       // If the response is successful, update the user state
       if (response && response.data) {
@@ -80,9 +98,26 @@ const LoginForm = () => {
         }
       }
     } catch (error) {
-      console.error("Login error:", error)
-      const errorMessage = error.response?.data?.message || "Email ou mot de passe invalide."
+      console.error("Login error FULL:", error)
+      console.error("Error response:", error.response)
+      console.error("Error message:", error.message)
+      console.error("Error code:", error.code)
+      
+      let errorMessage = "Une erreur s'est produite lors de la connexion."
+      
+      if (error.code === 'ECONNABORTED') {
+        errorMessage = "Le serveur met trop de temps à répondre. Réessayez."
+      } else if (error.code === 'ERR_NETWORK') {
+        errorMessage = "Impossible de se connecter au serveur. Vérifiez votre connexion."
+      } else if (error.response) {
+        errorMessage = error.response.data?.message || "Email ou mot de passe invalide."
+      } else if (error.request) {
+        errorMessage = "Le serveur ne répond pas. Vérifiez votre connexion."
+      }
+      
       showNotification(errorMessage, false)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -134,9 +169,12 @@ const LoginForm = () => {
       {/* Buttons */}
       <button
         type="submit"
-        className="w-full bg-[#3ddc97] py-2 mt-1 rounded-lg text-white font-bold hover:bg-[#32c587] cursor-pointer"
+        disabled={isSubmitting}
+        className={`w-full bg-[#3ddc97] py-2 mt-1 rounded-lg text-white font-bold ${
+          isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#32c587] cursor-pointer'
+        }`}
       >
-        {language.login.loginButton}
+        {isSubmitting ? 'Connexion...' : language.login.loginButton}
       </button>
       <div className="flex justify-center">
         <GoogleSignInButton onClick={handleGoogleLogin} buttonText={language.signup.googleButton} />
