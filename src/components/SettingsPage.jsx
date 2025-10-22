@@ -12,9 +12,14 @@ export default function SettingsPage() {
   const [showOnlineStatus, setShowOnlineStatus] = useState(true)
   const [emailNotif, setEmailNotif] = useState(false)
   const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("password123")
   const [language, setLanguage] = useState("Français")
   const [isLanguageOpen, setIsLanguageOpen] = useState(false)
+
+  // Password change states
+  const [showPasswordChange, setShowPasswordChange] = useState(false)
+  const [currentPassword, setCurrentPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   const [savedPosts, setSavedPosts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -180,6 +185,66 @@ export default function SettingsPage() {
     }
   }
 
+  const handleChangePassword = async (e) => {
+    e.preventDefault()
+
+    // Validation
+    if (newPassword.length < 6) {
+      alert("Le nouveau mot de passe doit contenir au moins 6 caractères")
+      return
+    }
+
+    if (newPassword !== confirmPassword) {
+      alert("Les mots de passe ne correspondent pas")
+      return
+    }
+
+    try {
+      const token = localStorage.getItem("token")
+      if (!token) {
+        alert("Authentification requise")
+        return
+      }
+
+      await axios.put(
+        `${BASE_URL}/api/users/change-password`,
+        {
+          currentPassword,
+          newPassword
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      )
+
+      // Show success notification
+      const notification = document.createElement("div")
+      notification.className = "fixed top-4 right-4 bg-[#3DDC97] text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center"
+      notification.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+        </svg>
+        <span>Mot de passe changé avec succès!</span>
+      `
+      document.body.appendChild(notification)
+      setTimeout(() => {
+        notification.classList.add("opacity-0", "transition-opacity", "duration-500")
+        setTimeout(() => document.body.removeChild(notification), 500)
+      }, 3000)
+
+      // Reset form
+      setCurrentPassword("")
+      setNewPassword("")
+      setConfirmPassword("")
+      setShowPasswordChange(false)
+
+    } catch (err) {
+      console.error("Error changing password:", err)
+      const errorMessage = err.response?.data?.message || "Erreur lors du changement de mot de passe"
+      alert(errorMessage)
+    }
+  }
+
   const handleUnsavePost = async (postId) => {
     try {
       const token = localStorage.getItem("token")
@@ -317,39 +382,110 @@ export default function SettingsPage() {
           return (
             <>
               <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl">
-                <h3 className="text-xl font-semibold mb-4">Informations sur votre compte</h3>
-                <form className="space-y-6">
-                  <div>
-                    <label className="block mb-1 text-gray-700">Mot de passe</label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border border-gray-300 rounded px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-[#3ddc97] focus:border-[#3ddc97] transition-colors"
-                    />
+                <h3 className="text-xl font-semibold mb-4">Sécurité du compte</h3>
+                
+                {/* Password Change Button */}
+                {!showPasswordChange ? (
+                  <div className="mb-6">
+                    <motion.button
+                      onClick={() => setShowPasswordChange(true)}
+                      className="bg-[#3ddc97] text-white px-6 py-2 rounded-lg hover:bg-[#2cb581] transition-colors shadow-md flex items-center gap-2"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                      </svg>
+                      Changer le mot de passe
+                    </motion.button>
                   </div>
-                  <div className="mt-6">
-                    <h4 className="text-lg font-semibold mb-2">Confidentialité</h4>
-                    <div className="space-y-4">
-                      <CustomSwitch
-                        checked={showOnlineStatus}
-                        onChange={() => setShowOnlineStatus(!showOnlineStatus)}
-                        label="Statut en ligne"
+                ) : (
+                  <form onSubmit={handleChangePassword} className="space-y-4 mb-6">
+                    <div>
+                      <label className="block mb-1 text-gray-700">Mot de passe actuel</label>
+                      <input
+                        type="password"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        required
+                        placeholder="Entrez votre mot de passe actuel"
+                        className="w-full border border-gray-300 rounded px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-[#3ddc97] focus:border-[#3ddc97] transition-colors"
                       />
                     </div>
+                    <div>
+                      <label className="block mb-1 text-gray-700">Nouveau mot de passe</label>
+                      <input
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        required
+                        minLength={6}
+                        placeholder="Au moins 6 caractères"
+                        className="w-full border border-gray-300 rounded px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-[#3ddc97] focus:border-[#3ddc97] transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block mb-1 text-gray-700">Confirmer le nouveau mot de passe</label>
+                      <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        minLength={6}
+                        placeholder="Retapez le nouveau mot de passe"
+                        className="w-full border border-gray-300 rounded px-4 py-2 hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-[#3ddc97] focus:border-[#3ddc97] transition-colors"
+                      />
+                    </div>
+                    <div className="flex gap-3">
+                      <motion.button
+                        type="submit"
+                        className="bg-[#3ddc97] text-white px-6 py-2 rounded-lg hover:bg-[#2cb581] transition-colors shadow-md"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Confirmer
+                      </motion.button>
+                      <motion.button
+                        type="button"
+                        onClick={() => {
+                          setShowPasswordChange(false)
+                          setCurrentPassword("")
+                          setNewPassword("")
+                          setConfirmPassword("")
+                        }}
+                        className="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition-colors"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Annuler
+                      </motion.button>
+                    </div>
+                  </form>
+                )}
+
+                <div className="border-t pt-6">
+                  <h4 className="text-lg font-semibold mb-4">Confidentialité</h4>
+                  <div className="space-y-4">
+                    <CustomSwitch
+                      checked={showOnlineStatus}
+                      onChange={() => setShowOnlineStatus(!showOnlineStatus)}
+                      label="Statut en ligne"
+                    />
                   </div>
-                </form>
+                </div>
               </div>
-              <div className="mt-4 flex justify-end max-w-2xl">
-                <motion.button
-                  onClick={handleSaveChanges}
-                  className="bg-[#3ddc97] text-white px-6 py-2 rounded-full hover:bg-[#2cb581] transition-colors shadow-md"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Enregistrer les modifications
-                </motion.button>
-              </div>
+              {!showPasswordChange && (
+                <div className="mt-4 flex justify-end max-w-2xl">
+                  <motion.button
+                    onClick={handleSaveChanges}
+                    className="bg-[#3ddc97] text-white px-6 py-2 rounded-full hover:bg-[#2cb581] transition-colors shadow-md"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Enregistrer les modifications
+                  </motion.button>
+                </div>
+              )}
             </>
           )
         case "Publications sauvegardées":
@@ -489,7 +625,7 @@ export default function SettingsPage() {
     <div className="p-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold">Paramètre</h2>
+          <h2 className="text-2xl font-bold">Paramètres</h2>
         </div>
 
         <div className="border-b border-gray-300 mb-6">

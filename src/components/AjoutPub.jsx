@@ -84,6 +84,7 @@ const AjoutPub = ({
   })
   const [currentUser, setCurrentUser] = useState(null);
   const [isReported, setIsReported] = useState(false) // Add reported state
+  const [imagePreview, setImagePreview] = useState(null) // Add image preview state
 
   const handlePostClick = (e) => {
     // Only navigate if not clicking on interactive elements
@@ -653,6 +654,7 @@ const AjoutPub = ({
               src={media} 
               alt="Post content" 
               className="post-media"
+              onClick={() => setImagePreview(media)}
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = "/placeholder.svg";
@@ -754,6 +756,27 @@ const AjoutPub = ({
               />
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Image Preview Modal */}
+      {imagePreview && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+          onClick={() => setImagePreview(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300 z-[10000]"
+            onClick={() => setImagePreview(null)}
+          >
+            ×
+          </button>
+          <img
+            src={imagePreview}
+            alt="Preview"
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
         </div>
       )}
     </div>

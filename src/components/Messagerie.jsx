@@ -333,10 +333,13 @@ const Messagerie = () => {
         )
       }
 
-      // Scroll to bottom after a short delay
-      setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-      }, 100)
+      // Only scroll to bottom on initial load (when selectedContact was null before)
+      // Don't auto-scroll when user is reading old messages
+      if (!selectedContact) {
+        setTimeout(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        }, 100)
+      }
     } catch (err) {
       console.error("Error fetching messages:", err)
     }
@@ -351,6 +354,8 @@ const Messagerie = () => {
       </div>
     )
   }
+
+  const [imagePreview, setImagePreview] = useState(null)
 
   const renderMessage = (msg, index, isLatestMessage) => (
     <div key={`${msg.id}-${index}`} className={`message-wrapper ${msg.sent ? "sent" : "received"}`}>
@@ -368,7 +373,8 @@ const Messagerie = () => {
                   <img
                     src={msg.media || "/placeholder.svg"}
                     alt="Attachment"
-                    className="max-w-full rounded-lg"
+                    className="max-w-[200px] max-h-[150px] object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                    onClick={() => setImagePreview(msg.media)}
                     onError={(e) => {
                       e.target.onerror = null
                       e.target.src = "/assets/UserCircle.png"
@@ -847,6 +853,7 @@ const Messagerie = () => {
   };
 
   return (
+    <>
     <div className={`Appmessagerie ${isExternalSidebarClosed ? 'full-width' : ''}`}>
       <div className="containermessagerie" >
         <div className="mainmessagerie">
@@ -999,6 +1006,28 @@ const Messagerie = () => {
         </div>
       </div>
   </div>
+
+  {/* Image Preview Modal */}
+  {imagePreview && (
+    <div 
+      className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+      onClick={() => setImagePreview(null)}
+    >
+      <button
+        className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300"
+        onClick={() => setImagePreview(null)}
+      >
+        ×
+      </button>
+      <img
+        src={imagePreview}
+        alt="Preview"
+        className="max-w-full max-h-full object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>
+  )}
+  </>
   )
 }
 
