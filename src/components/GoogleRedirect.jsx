@@ -18,8 +18,11 @@ const GoogleRedirect = () => {
   }, [location, navigate]);
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center animate-pulse">
-      <img src='' alt="logo" style={{ width: "200px", height: "200px" }} />
+    <div className="h-screen w-screen flex items-center justify-center bg-[#1A1A2E]">
+      <div className="flex flex-col items-center gap-4">
+        <img src='/assets/logo3.png' alt="logo" className="w-[200px] h-[200px] animate-pulse" />
+        <p className="text-[#3DDC97] text-xl font-semibold">Connexion en cours...</p>
+      </div>
     </div>
   );
 };

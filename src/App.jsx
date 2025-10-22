@@ -134,7 +134,7 @@ export default function App() {
   return (
     <GoogleOAuthProvider clientId="801840850984-s0ofqjs8bprb4kr4l5amh2g8p4ebpd3j.apps.googleusercontent.com">
       <ReportDialogProvider>
-      {isAuthRoute ? (
+      {isAuthRoute || location.pathname === '/api/auth/success' ? (
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<LogIn />} />
@@ -142,6 +142,7 @@ export default function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/reset-password-success" element={<ResetPasswordSuccess />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/api/auth/success" element={<GoogleRedirect />} />
         </Routes>
       ) : (
         <div className="flex flex-col h-screen bg-white text-[#2A2A3B]">
@@ -163,7 +164,6 @@ export default function App() {
 
               <div className="pt-6 px-6">
                 <Routes>
-                <Route path="/api/auth/success" element={<GoogleRedirect />} />
                   <Route path="/acceuil" element={<Accueil />} />
                   <Route path="/notification" element={<Notification />} />
                   <Route path="/messagerie" element={<Messagerie />} />
