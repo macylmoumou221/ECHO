@@ -103,8 +103,9 @@ export default function SearchResults() {
   const hasResults = results.users.length > 0 || results.posts.length > 0 // Ensure this correctly evaluates the presence of results
 
   return (
-    <div className="relative z-40 bg-white p-0 min-h-screen">
-      <div className="mb-6">
+    <div className="fixed inset-0 z-50 bg-white overflow-y-auto pt-20 lg:pl-[230px]">
+      <div className="p-4 md:p-6">
+        <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-800">
           Résultats pour <span className="text-[#3ddc97]">"{query}"</span>
         </h1>
@@ -248,6 +249,7 @@ export default function SearchResults() {
           </p>
         </div>
       )}
+      </div>
     </div>
   )
 }
