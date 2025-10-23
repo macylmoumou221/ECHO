@@ -42,10 +42,9 @@ div {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   background-color: #f6f6f6;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
@@ -54,7 +53,6 @@ div {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: 0 1rem;
   gap: 1.5rem;
 }
 
@@ -62,7 +60,6 @@ div {
 @media (min-width: 1024px) {
   .main {
     flex-direction: row;
-    padding: 0 1.25rem;
   }
 }
 
@@ -76,15 +73,13 @@ div {
 /* Desktop: Limit publication width when sidebar is visible */
 @media (min-width: 1024px) {
   .publication {
-    max-width: calc(100% - 400px);
-    margin-left: 1.5rem;
+    max-width: calc(100% - 420px);
   }
 }
 
 @media (min-width: 1280px) {
   .publication {
-    max-width: 750px;
-    margin-left: 2.5rem;
+    max-width: 800px;
   }
 }
 
@@ -99,23 +94,16 @@ div {
   flex-shrink: 0;
 }
 
-/* Tablet and Desktop: Fixed sidebar */
-@media (min-width: 768px) {
-  .programme {
-    margin-top: 3.75rem;
-  }
-}
-
+/* Desktop: Fixed sidebar */
 @media (min-width: 1024px) {
   .programme {
-    width: 375px;
-    margin-left: 2rem;
+    width: 380px;
   }
 }
 
 @media (min-width: 1280px) {
   .programme {
-    margin-left: 3.75rem;
+    width: 400px;
   }
 }
 

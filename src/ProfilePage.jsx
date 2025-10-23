@@ -568,7 +568,8 @@ export default function ProfilePage({ user }) {
   }
 
   return (
-    <div className="flex-1 p-3 sm:p-4 md:p-6 relative overflow-y-auto max-h-[calc(100vh-80px)]">
+    <div className="w-full h-full overflow-y-auto">
+      <div className="max-w-6xl mx-auto">
       <AnimatePresence>
         {showSaveButton && (
           <motion.button
@@ -981,6 +982,7 @@ export default function ProfilePage({ user }) {
 
         {renderPostsSection()}
       </section>
+      </div>
     </div>
   )
 }

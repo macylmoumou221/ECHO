@@ -137,17 +137,15 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
   }
 
   return (
-    <header
-      className={`w-full h-14 md:h-16 select-none shadow-[0_4px_10px_rgba(0,0,0,0.1)]
-        flex items-center justify-between px-3 sm:px-4 md:px-6 gap-2 md:gap-4
+    <div
+      className={`w-full h-16 select-none flex items-center justify-between px-4 md:px-6 gap-3
         ${darkMode ? "bg-[#242431] text-white" : "bg-white text-gray-800"}`}
     >
-      <div className="text-sm sm:text-base md:text-lg font-semibold select-none flex-shrink-0 min-w-fit">
-        <span className="hidden sm:inline">Salut, </span>
-        <span className="text-[#3ddc97]">{username}</span>
+      <div className="text-base md:text-lg font-semibold select-none flex-shrink-0 whitespace-nowrap">
+        Salut, <span className="text-[#3ddc97]">{username}</span>
       </div>
 
-      <div className="relative flex-1 max-w-xl">
+      <div className="relative flex-1 max-w-2xl">
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -281,6 +279,6 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
           {currentUser?.firstName || name} {currentUser?.lastName || lastName}
         </span>
       </div>
-    </header>
+    </div>
   )
 }
