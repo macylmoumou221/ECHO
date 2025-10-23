@@ -13,7 +13,7 @@ const AuthSuccess = () => {
       localStorage.setItem("token", token)
       localStorage.setItem("userToken", token)
       localStorage.setItem("lastAuth", Date.now().toString()) // Add timestamp
-      navigate("/accueil")
+      navigate("/acceuil")
     } else {
       console.error("No token received")
       navigate("/login")

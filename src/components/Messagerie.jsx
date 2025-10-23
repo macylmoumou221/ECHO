@@ -373,7 +373,7 @@ const Messagerie = () => {
                   <img
                     src={msg.media || "/placeholder.svg"}
                     alt="Attachment"
-                    className="max-w-[200px] max-h-[150px] object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                    className="max-w-[250px] max-h-[200px] object-contain rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
                     onClick={() => setImagePreview(msg.media)}
                     onError={(e) => {
                       e.target.onerror = null
@@ -748,95 +748,83 @@ const Messagerie = () => {
     </div>
   )
 
+  // Merged useEffect to handle URL parameters and prevent auto-switching
   useEffect(() => {
     const initializeChat = async () => {
-      if (userId) {
-        // Find contact in existing contacts
-        const existingContact = contacts.find((c) => c.id === userId)
+      if (!userId) return
+      
+      // Prevent reselecting if already selected
+      if (selectedContact && selectedContact.id === userId) return
 
-        if (existingContact) {
-          await handleContactSelect(existingContact)
-        } else {
-          // Fetch user info if not in contacts
-          try {
-            const token = localStorage.getItem("token")
-            const response = await axios.get(`${BASE_URL}/api/users/${userId}`, {
-               headers: {
-                 Authorization: `Bearer ${token}`,
-               },
-             })
+      // Find contact in existing contacts
+      const existingContact = contacts.find((c) => c.id === userId)
 
-            const user = response.data.user
-            const newContact = {
-              id: user._id,
-              name: `${user.firstName} ${user.lastName}`,
-              username: user.username,
-              profilePicture: user.profilePicture,
-              messages: [],
-              status: "Hors Ligne",
-            }
+      if (existingContact) {
+        await handleContactSelect(existingContact)
+      } else {
+        // Fetch user info if not in contacts
+        try {
+          const token = localStorage.getItem("token")
+          const response = await axios.get(`${BASE_URL}/api/users/${userId}`, {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           })
 
-            await handleContactSelect(newContact)
-          } catch (err) {
-            console.error("Error fetching user:", err)
+          const user = response.data.user
+          const newContact = {
+            id: user._id,
+            name: `${user.firstName} ${user.lastName}`,
+            username: user.username,
+            profilePicture: user.profilePicture,
+            messages: [],
+            status: "Hors Ligne",
           }
+
+          await handleContactSelect(newContact)
+        } catch (err) {
+          console.error("Error fetching user:", err)
         }
       }
-    }
 
-    initializeChat()
-  }, [userId, contacts])
-
-  
-
-  // Add effect to handle URL parameters and state
-  useEffect(() => {
-    if (userId) {
-      // Find contact in existing contacts or fetch new contact info
-      const existingContact = contacts.find((c) => c.id === userId)
-      if (existingContact) {
-        handleContactSelect(existingContact)
-      }
 
       // Set initial message if provided in state
       const initialMessageFromState = location.state?.initialMessage
       const initialMediaFromState = location.state?.initialMedia
 
-      // consume initial message and media once
-      const consumeInitialState = async () => {
-        if (initialMessageFromState) {
-          setMessage(initialMessageFromState)
-        }
+      if (initialMessageFromState) {
+        setMessage(initialMessageFromState)
+      }
 
-        if (initialMediaFromState) {
-          try {
-            const res = await fetch(initialMediaFromState)
-            const blob = await res.blob()
-            const fileName = initialMediaFromState.split('/').pop().split('?')[0]
-            const file = new File([blob], fileName, { type: blob.type })
-            setMediaFile(file)
-            const reader = new FileReader()
-            reader.onloadend = () => setMediaPreview(reader.result)
-            reader.readAsDataURL(file)
-          } catch (err) {
-            console.error('Failed to load initial media:', err)
-          }
+      if (initialMediaFromState) {
+        try {
+          const res = await fetch(initialMediaFromState)
+          const blob = await res.blob()
+          const fileName = initialMediaFromState.split('/').pop().split('?')[0]
+          const file = new File([blob], fileName, { type: blob.type })
+          setMediaFile(file)
+          const reader = new FileReader()
+          reader.onloadend = () => setMediaPreview(reader.result)
+          reader.readAsDataURL(file)
+        } catch (err) {
+          console.error('Failed to load initial media:', err)
         }
+      }
 
-        // Clear navigation state so we don't reapply these on future updates
+      // Clear navigation state
+      if (initialMessageFromState || initialMediaFromState) {
         try {
           navigate(location.pathname, { replace: true, state: {} })
         } catch (e) {
-          // fallback: window.history.replaceState
           try {
             window.history.replaceState({}, document.title)
           } catch (err) {}
         }
       }
-
-      consumeInitialState()
     }
-  }, [userId, contacts])
+
+    initializeChat()
+  }, [userId]) // Remove contacts from dependencies to prevent re-triggers
 
   // Add role translation helper
   const translateRole = (role) => {

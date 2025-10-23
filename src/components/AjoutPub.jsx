@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { createPortal } from "react-dom"
 import { Shield, Briefcase, GraduationCap } from "lucide-react" // Changed to lucide-react
 import "./AjoutPub.css"
 import Comment from "./Comment"
@@ -760,24 +761,29 @@ const AjoutPub = ({
       )}
 
       {/* Image Preview Modal */}
-      {imagePreview && (
+      {imagePreview && createPortal(
         <div 
-          className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/95 flex items-center justify-center p-4 animate-fadeIn"
+          style={{ zIndex: 99999 }}
           onClick={() => setImagePreview(null)}
         >
           <button
-            className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-300 z-[10000]"
-            onClick={() => setImagePreview(null)}
+            className="absolute top-4 right-4 text-white text-4xl font-bold hover:text-gray-300 transition-colors z-[100000] w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/10"
+            onClick={(e) => {
+              e.stopPropagation()
+              setImagePreview(null)
+            }}
           >
-            ×
+            ✕
           </button>
           <img
             src={imagePreview}
             alt="Preview"
-            className="max-w-full max-h-full object-contain"
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )

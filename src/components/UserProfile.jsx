@@ -146,7 +146,7 @@ export default function UserProfile() {
   }
 
   return (
-    <div className="flex-1 p-6 relative">
+    <div className="flex-1 p-3 sm:p-4 md:p-6 relative overflow-y-auto max-h-[calc(100vh-80px)]">
       <div className="bg-white rounded-xl shadow-md overflow-hidden mb-8">
         <div className="p-6">
           <div className="flex flex-col md:flex-row items-start gap-6">

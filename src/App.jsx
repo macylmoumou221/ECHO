@@ -127,7 +127,7 @@ export default function App() {
     if (!token && isAtRoot) {
       navigate("/login")
     } else if (token && isAtRoot) {
-      navigate("/accueil")
+      navigate("/acceuil")
     }
   }, [location.pathname, navigate])
 

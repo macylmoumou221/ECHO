@@ -138,17 +138,16 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
 
   return (
     <header
-      className={`fixed top-0 right-0 h-14 md:h-16 select-none shadow-[0_4px_10px_rgba(0,0,0,0.1)]
-        flex items-center justify-between px-3 sm:px-4 md:px-6 transition-all duration-300 z-30
-        ${darkMode ? "bg-[#242431] text-white" : "bg-white text-gray-800"}
-        w-full lg:w-[calc(100%-${isOpen ? '230px' : '80px'})]`}
+      className={`w-full h-14 md:h-16 select-none shadow-[0_4px_10px_rgba(0,0,0,0.1)]
+        flex items-center justify-between px-3 sm:px-4 md:px-6 gap-2 md:gap-4
+        ${darkMode ? "bg-[#242431] text-white" : "bg-white text-gray-800"}`}
     >
-      <div className="text-sm sm:text-base md:text-lg font-semibold select-none flex-shrink-0">
+      <div className="text-sm sm:text-base md:text-lg font-semibold select-none flex-shrink-0 min-w-fit">
         <span className="hidden sm:inline">Salut, </span>
         <span className="text-[#3ddc97]">{username}</span>
       </div>
 
-      <div className="relative flex-1 max-w-md mx-2 sm:mx-4 md:mx-6">
+      <div className="relative flex-1 max-w-xl">
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -158,19 +157,19 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
               setResults([])
             }
           }}
-          className={`relative flex items-center px-2 sm:px-3 md:px-4 py-1.5 md:py-2 rounded-lg
+          className={`relative flex items-center px-3 md:px-4 py-2 rounded-lg gap-2
             ${darkMode ? "bg-[#242431] text-white" : "bg-gray-100 text-gray-600"}`}
         >
-          <Search className="absolute left-2 sm:left-3 text-gray-400" size={16} />
+          <Search className="text-gray-400 flex-shrink-0" size={18} />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={isFocused ? "" : "Rechercher"}
+            placeholder="Rechercher"
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 200)}
             onKeyDown={handleKeyDown}
-            className={`bg-transparent focus:outline-none pl-7 sm:pl-8 md:pl-10 pr-2 w-full text-sm md:text-base
+            className={`bg-transparent focus:outline-none w-full text-sm md:text-base
               ${
                 darkMode
                   ? "text-white placeholder-gray-400"
@@ -179,10 +178,10 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
           />
           <button
             type="submit"
-            className="flex items-center gap-1 md:gap-2 bg-[#3ddc97] text-white px-2 sm:px-3 md:px-4 py-1 md:py-2 rounded-lg transition-all cursor-pointer text-sm md:text-base"
+            className="flex items-center gap-1 md:gap-2 bg-[#3ddc97] text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-all cursor-pointer text-sm md:text-base flex-shrink-0"
           >
-            <span className="hidden lg:inline">Rechercher</span>
-            <ArrowRight size={14} className="sm:w-4 sm:h-4" />
+            <span className="hidden md:inline">Rechercher</span>
+            <ArrowRight size={16} />
           </button>
         </form>
 

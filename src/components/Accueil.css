@@ -122,31 +122,38 @@ div {
 .calendrier {
   width: 100%;
   min-height: 280px;
-  height: auto;
+  max-height: 400px;
   border-radius: 1.25rem;
   background-color: #ffffffff;
   flex-shrink: 0;
   padding: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
   .calendrier {
-    height: 280px;
+    height: auto;
   }
 }
 
 .planning {
   width: 100%;
   min-height: 230px;
-  height: auto;
+  max-height: 500px;
   border-radius: 1.25rem;
   background-color: #ffffffff;
   flex-shrink: 0;
   padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
   .planning {
-    height: 230px;
+    height: auto;
   }
 }
