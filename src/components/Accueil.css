@@ -53,13 +53,15 @@ div {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  gap: 1.5rem;
+  gap: 1rem;
+  padding: 0;
 }
 
 /* Desktop: side-by-side layout */
 @media (min-width: 1024px) {
   .main {
     flex-direction: row;
+    gap: 1.5rem;
   }
 }
 
@@ -73,13 +75,13 @@ div {
 /* Desktop: Limit publication width when sidebar is visible */
 @media (min-width: 1024px) {
   .publication {
-    max-width: calc(100% - 420px);
+    max-width: calc(100% - 380px);
   }
 }
 
 @media (min-width: 1280px) {
   .publication {
-    max-width: 800px;
+    max-width: 750px;
   }
 }
 
@@ -88,22 +90,23 @@ div {
   height: fit-content;
   display: flex;
   flex-direction: column;
-  position: relative;
+  position: sticky;
+  top: 0;
   margin: 0;
-  gap: 1.25rem;
+  gap: 1rem;
   flex-shrink: 0;
 }
 
 /* Desktop: Fixed sidebar */
 @media (min-width: 1024px) {
   .programme {
-    width: 380px;
+    width: 360px;
   }
 }
 
 @media (min-width: 1280px) {
   .programme {
-    width: 400px;
+    width: 375px;
   }
 }
 
@@ -114,7 +117,7 @@ div {
   border-radius: 1.25rem;
   background-color: #ffffffff;
   flex-shrink: 0;
-  padding: 1rem;
+  padding: 0.75rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -123,6 +126,7 @@ div {
 @media (min-width: 768px) {
   .calendrier {
     height: auto;
+    padding: 1rem;
   }
 }
 
@@ -133,7 +137,7 @@ div {
   border-radius: 1.25rem;
   background-color: #ffffffff;
   flex-shrink: 0;
-  padding: 1rem;
+  padding: 0.75rem;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -143,5 +147,6 @@ div {
 @media (min-width: 768px) {
   .planning {
     height: auto;
+    padding: 1rem;
   }
 }
