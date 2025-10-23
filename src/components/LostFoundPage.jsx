@@ -260,7 +260,7 @@ export default function LostFoundPage() {
   }, [])
 
   return (
-    <div className="relative p-4 sm:p-6 md:p-8 pt-20 select-none">
+    <div className="relative p-0 select-none">
       <div className="fixed bottom-6 right-6 z-10">
         <FloatingButton onClick={() => setIsOpen(true)} />
       </div>

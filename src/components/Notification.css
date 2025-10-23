@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 0 20px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -13,23 +13,22 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0;
   box-sizing: border-box;
-  background-color: #f6f6f6;
-  border-radius: 15px;
+  background-color: transparent;
 }
 
 .notification-header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .notification-header h1 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: #1e1e2e;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
   background: linear-gradient(45deg, #1e1e2e, #3ddc97);
   background-clip: text;
   -webkit-background-clip: text;
