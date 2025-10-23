@@ -184,7 +184,7 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
         </form>
 
         {isFocused && results.length > 0 && (
-          <div className="absolute top-full mt-1 w-full bg-white shadow-lg rounded-lg max-h-96 overflow-auto z-50">
+          <div className="absolute top-full mt-1 w-full bg-white shadow-xl rounded-lg max-h-96 overflow-auto border border-gray-200" style={{ zIndex: 9999 }}>
             {results.map((result, index) => (
               <div
                 key={result.id}
@@ -231,7 +231,7 @@ export default function Searchbar({ username, isOpen, darkMode, userType, name, 
         )}
 
         {isFocused && query.trim() !== "" && results.length === 0 && (
-          <div className="absolute top-full mt-1 w-full bg-white shadow-md rounded-md p-4 text-gray-600">
+          <div className="absolute top-full mt-1 w-full bg-white shadow-xl rounded-lg p-4 text-gray-600 border border-gray-200" style={{ zIndex: 9999 }}>
             <div className="text-center">
               <p className="font-medium">Aucun résultat trouvé</p>
               <p className="text-sm text-gray-400 mt-1">Essayez avec d'autres termes de recherche</p>
